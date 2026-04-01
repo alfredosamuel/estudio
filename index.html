@@ -671,7 +671,8 @@
       0%, 100% { transform: scaleY(0.5); }
       50% { transform: scaleY(1); }
     }
-        /* ══════════════════════════════════════════
+
+    /* ══════════════════════════════════════════
        RELEASES SECTION
     ══════════════════════════════════════════ */
     .releases-section { background: var(--color-bg); }
@@ -716,16 +717,27 @@
       color: var(--color-primary);
       transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
     }
-    .release-cover-wrap:has(.release-video-overlay.active) .release-play-hint { opacity: 0; pointer-events: none; }
-    .release-cover-wrap:hover .release-play-hint { transform: scale(1.12); background: oklch(from var(--color-bg) l c h / 0.95); }
+    .release-cover-wrap:has(.release-video-overlay.active) .release-play-hint {
+      opacity: 0; pointer-events: none;
+    }
+    .release-cover-wrap:hover .release-play-hint {
+      transform: scale(1.12);
+      background: oklch(from var(--color-bg) l c h / 0.95);
+    }
     .release-cover-wrap.touched .release-cover-img { opacity: 0; }
     .release-info { padding: 0 var(--space-1); }
     .release-title {
       font-family: var(--font-display); font-size: var(--text-base);
       font-weight: 600; color: var(--color-text); margin-bottom: var(--space-1);
     }
-    .release-desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.5; max-width: none; }
-    .releases-empty { text-align: center; padding: var(--space-16) var(--space-8); color: var(--color-text-faint); }
+    .release-desc {
+      font-size: var(--text-xs); color: var(--color-text-muted);
+      line-height: 1.5; max-width: none;
+    }
+    .releases-empty {
+      text-align: center; padding: var(--space-16) var(--space-8);
+      color: var(--color-text-faint);
+    }
     .releases-empty svg { margin: 0 auto var(--space-4); opacity: 0.5; }
     .releases-empty p { font-size: var(--text-sm); color: var(--color-text-faint); max-width: none; }
 
@@ -800,16 +812,16 @@
     }
     .admin-form-group textarea { resize: vertical; min-height: 80px; }
     .admin-image-preview {
-      aspect-ratio: 1; max-width: 130px;
+      aspect-ratio: 1; width: 130px; flex-shrink: 0;
       border-radius: var(--radius-lg);
       background: var(--color-surface-offset);
       border: 2px dashed var(--color-border);
       display: flex; align-items: center; justify-content: center;
       overflow: hidden; cursor: pointer; position: relative;
-      transition: border-color 0.2s; flex-shrink: 0;
+      transition: border-color 0.2s;
     }
     .admin-image-preview:hover { border-color: var(--color-primary); }
-    .admin-image-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: calc(var(--radius-lg) - 2px); }
+    .admin-image-preview img { width: 100%; height: 100%; object-fit: cover; }
     .admin-image-preview-placeholder {
       display: flex; flex-direction: column; align-items: center; gap: var(--space-1);
       color: var(--color-text-faint); font-size: var(--text-xs); text-align: center; padding: var(--space-3);
@@ -817,13 +829,27 @@
     #adminImageFileInput { display: none; }
     .admin-img-row { display: flex; gap: var(--space-4); align-items: flex-start; margin-bottom: var(--space-4); }
     .admin-img-url-col { flex: 1; min-width: 0; }
+    .admin-img-url-col label {
+      font-size: var(--text-xs); color: var(--color-text-faint);
+      display: block; margin-bottom: var(--space-2);
+    }
+    .admin-img-url-col input {
+      width: 100%; padding: var(--space-3) var(--space-4);
+      background: var(--color-surface-2); border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); color: var(--color-text); font-size: var(--text-sm);
+      transition: border-color var(--transition-interactive), box-shadow var(--transition-interactive);
+    }
+    .admin-img-url-col input:focus {
+      outline: none; border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.15);
+    }
     .btn-admin-primary {
       display: inline-flex; align-items: center; gap: var(--space-2);
       padding: var(--space-3) var(--space-6);
       background: var(--color-primary); color: var(--color-text-inverse);
       font-size: var(--text-sm); font-weight: 600; border-radius: var(--radius-md);
       transition: background var(--transition-interactive), transform var(--transition-interactive);
-      width: 100%; justify-content: center;
+      width: 100%; justify-content: center; border: none; cursor: pointer;
     }
     .btn-admin-primary:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
     .btn-admin-secondary {
@@ -833,6 +859,7 @@
       font-size: var(--text-sm); font-weight: 500; border-radius: var(--radius-md);
       border: 1px solid oklch(from var(--color-text) l c h / 0.12);
       transition: color var(--transition-interactive), background var(--transition-interactive);
+      cursor: pointer;
     }
     .btn-admin-secondary:hover { color: var(--color-text); background: var(--color-surface-dynamic); }
     .admin-feedback {
@@ -887,7 +914,8 @@
     .admin-delete-btn {
       flex-shrink: 0; width: 32px; height: 32px;
       display: flex; align-items: center; justify-content: center;
-      color: var(--color-text-faint); border-radius: var(--radius-sm); transition: color 0.2s, background 0.2s;
+      color: var(--color-text-faint); border-radius: var(--radius-sm);
+      transition: color 0.2s, background 0.2s; cursor: pointer; border: none; background: none;
     }
     .admin-delete-btn:hover { color: oklch(0.65 0.15 30); background: oklch(0.4 0.15 30 / 0.1); }
     .admin-empty-list {
@@ -911,18 +939,27 @@
       font-family: var(--font-display); font-size: var(--text-xl);
       font-weight: 700; color: var(--color-text); margin-bottom: var(--space-2);
     }
-    .admin-login-subtitle { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6); max-width: none; }
+    .admin-login-subtitle {
+      font-size: var(--text-sm); color: var(--color-text-muted);
+      margin-bottom: var(--space-6); max-width: none;
+    }
     .admin-login-input {
       width: 100%; padding: var(--space-3) var(--space-4);
       background: var(--color-surface-2); border: 1px solid var(--color-border);
       border-radius: var(--radius-md); color: var(--color-text); font-size: var(--text-base);
       text-align: center; letter-spacing: 0.1em; margin-bottom: var(--space-4);
     }
-    .admin-login-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.15); }
-    .admin-login-error { font-size: var(--text-sm); color: oklch(0.65 0.15 30); margin-bottom: var(--space-3); display: none; }
-    .admin-login-error.show { display: block; }
-    .admin-data-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-4); 
+    .admin-login-input:focus {
+      outline: none; border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.15);
     }
+    .admin-login-error {
+      font-size: var(--text-sm); color: oklch(0.65 0.15 30);
+      margin-bottom: var(--space-3); display: none;
+    }
+    .admin-login-error.show { display: block; }
+    .admin-data-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-4); }
+
   </style>
 </head>
 <body>
@@ -1249,6 +1286,7 @@
   </div>
 </section>
 
+
 <!-- ── RELEASES ── -->
 <section class="section releases-section" id="releases" aria-labelledby="releases-heading">
   <div class="container">
@@ -1260,9 +1298,11 @@
     <div class="releases-grid" id="releasesGrid"></div>
     <div class="releases-empty" id="releasesEmpty">
       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
+        <circle cx="12" cy="12" r="10"/>
+        <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
       </svg>
       <p>Aún no hay releases publicados.<br>
+        Agrégalos desde el <a href="#admin" style="color:var(--color-primary)">panel de administración</a>.
       </p>
     </div>
   </div>
@@ -1378,7 +1418,6 @@
     </div>
   </div>
 </section>
-</main>
 
 <!-- ── ADMIN LOGIN OVERLAY ── -->
 <div id="adminLogin" role="dialog" aria-modal="true" aria-label="Acceso administrador">
@@ -1398,7 +1437,8 @@
       Ingresar
     </button>
     <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-4)">
-      Contraseña por defecto: <code style="background:var(--color-surface-offset);padding:1px 5px;border-radius:3px">admin123</code>
+      Contraseña por defecto: <code style="background:var(--color-surface-offset);padding:1px 5px;border-radius:3px">admin123</code><br>
+      Cámbiala en el JS (variable <code style="background:var(--color-surface-offset);padding:1px 5px;border-radius:3px">ADMIN_PASSWORD</code>).
     </p>
   </div>
 </div>
@@ -1418,14 +1458,16 @@
       <button id="adminLogoutBtn" class="btn-admin-secondary">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-          <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
         </svg>
         Cerrar sesión
       </button>
       <button id="adminViewSiteBtn" class="admin-close-btn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-          <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
         </svg>
         Ver sitio
       </button>
@@ -1433,23 +1475,26 @@
   </nav>
 
   <div class="admin-body">
-    <!-- Formulario -->
+    <!-- LEFT: Formulario -->
     <div>
       <div class="admin-panel">
         <h3 class="admin-panel-title" id="adminFormTitle">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
           </svg>
           Agregar release
         </h3>
 
         <div class="admin-form-group">
-          <label>Carátula (cuadrada)</label>
+          <label>Carátula (siempre cuadrada)</label>
           <div class="admin-img-row">
             <div class="admin-image-preview" id="adminImagePreview" title="Haz clic para subir una imagen" role="button" tabindex="0" aria-label="Subir carátula">
               <div class="admin-image-preview-placeholder" id="adminImagePlaceholder">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
                   <polyline points="21 15 16 10 5 21"/>
                 </svg>
                 <span>Subir</span>
@@ -1458,7 +1503,7 @@
             </div>
             <input type="file" id="adminImageFileInput" accept="image/*" aria-label="Archivo de imagen" />
             <div class="admin-img-url-col">
-              <label style="font-size:var(--text-xs);color:var(--color-text-faint);display:block;margin-bottom:var(--space-2)">O pega una URL de imagen</label>
+              <label>O pega una URL de imagen</label>
               <input type="url" id="adminImageUrl" placeholder="https://..." />
             </div>
           </div>
@@ -1473,7 +1518,7 @@
           <label for="adminLink">Link de YouTube o SoundCloud</label>
           <input type="url" id="adminLink" placeholder="https://youtube.com/watch?v=... o https://soundcloud.com/..." />
           <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-1);max-width:none">
-            Soporta youtube.com/watch?v=..., youtu.be/... y soundcloud.com/... El video/audio se reproduce al pasar el cursor sobre la carátula.
+            Soporta youtube.com, youtu.be y soundcloud.com. El video/audio se reproduce al pasar el cursor sobre la carátula.
           </p>
         </div>
 
@@ -1487,13 +1532,15 @@
         <button class="btn-admin-primary" id="adminSaveBtn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
             <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-            <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
           </svg>
           Guardar release
         </button>
         <div class="admin-feedback" id="adminFeedback"></div>
       </div>
 
+      <!-- Data tools -->
       <div class="admin-panel" style="margin-top:var(--space-4)">
         <h3 class="admin-panel-title" style="font-size:var(--text-base);margin-bottom:var(--space-3)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -1503,19 +1550,38 @@
           </svg>
           Datos
         </h3>
-        <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-bottom:var(--space-4);max-width:none">Los datos se guardan en tu navegador (localStorage). Exporta para hacer respaldo o mover a otro dispositivo.</p>
+        <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-bottom:var(--space-3);max-width:none">
+          Cuando agregues o elimines releases, descarga el HTML actualizado y súbelo a Netlify. Así cualquier dispositivo verá los cambios.
+        </p>
+
+        <!-- PUBLICAR SITIO — botón principal -->
+        <button class="btn-admin-primary" id="adminPublishBtn" style="margin-bottom:var(--space-4)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          Publicar sitio (Descargar HTML)
+        </button>
+        <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-bottom:var(--space-4);max-width:none">
+          ① Haz clic → descarga <code style="background:var(--color-surface-offset);padding:1px 4px;border-radius:3px">index.html</code> &nbsp;
+          ② Súbelo a Netlify (drag &amp; drop) &nbsp;
+          ③ Todos los dispositivos verán los releases
+        </p>
         <div class="admin-data-actions">
           <button class="btn-admin-secondary" id="adminExportBtn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
             </svg>
             Exportar JSON
           </button>
           <button class="btn-admin-secondary" id="adminImportBtn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
             </svg>
             Importar JSON
           </button>
@@ -1525,15 +1591,18 @@
       </div>
     </div>
 
-    <!-- Lista de releases -->
+    <!-- RIGHT: Lista de releases -->
     <div>
       <div class="admin-panel" style="min-height:400px">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-6)">
           <h3 class="admin-panel-title" style="margin-bottom:0">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-              <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
-              <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+              <line x1="8" y1="6" x2="21" y2="6"/>
+              <line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/>
+              <line x1="3" y1="12" x2="3.01" y2="12"/>
+              <line x1="3" y1="18" x2="3.01" y2="18"/>
             </svg>
             Releases publicados
           </h3>
@@ -1544,6 +1613,9 @@
     </div>
   </div>
 </div>
+
+
+</main>
 
 <!-- ── FOOTER ── -->
 <footer class="footer" role="contentinfo">
@@ -1658,27 +1730,44 @@
   const statsBar = document.querySelector('.stats-bar');
   if (statsBar) statsObserver.observe(statsBar);
 
-  // ══════════════════════════════════════
-  // RELEASES & ADMIN
-  // ══════════════════════════════════════
-  const ADMIN_PASSWORD = 'kelindi1'; // ← Cambia esto
+  // ══════════════════════════════════════════════════════
+  // RELEASES & ADMIN PANEL
+  // ══════════════════════════════════════════════════════
+  const ADMIN_PASSWORD = 'kelindi1'; // ← Cambia esto por tu contraseña
+  // ── DATOS EMBEBIDOS ──────────────────────────────────────────────────────
+  // Este array se actualiza automáticamente al hacer "Publicar sitio"
+  // NO edites esto manualmente — usa el admin
+  const RELEASES_EMBEDDED = [];
+  // ─────────────────────────────────────────────────────────────────────────
   let releases = [];
   let adminAuthenticated = false;
   let adminCurrentImage = null;
 
+  // localStorage helpers (con fallback por si está bloqueado)
   function lsGet(k) { try { return localStorage.getItem(k); } catch(e) { return null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch(e) {} }
 
   function loadReleases() {
+    // Primero carga los datos embebidos en el HTML (fuente de verdad universal)
+    if (RELEASES_EMBEDDED && RELEASES_EMBEDDED.length > 0) {
+      releases = RELEASES_EMBEDDED;
+      // Sincroniza localStorage con los embebidos para que el admin muestre los mismos
+      lsSet('alfredo_releases', JSON.stringify(releases));
+      return;
+    }
+    // Fallback: localStorage (sesión de edición local antes de publicar)
     const raw = lsGet('alfredo_releases');
     if (raw) { try { releases = JSON.parse(raw); } catch(e) { releases = []; } }
   }
   function saveReleases() { lsSet('alfredo_releases', JSON.stringify(releases)); }
 
+  // Detecta el tipo de link y construye la URL de embed
   function getEmbedUrl(url) {
     if (!url) return null;
+    // YouTube: soporta youtube.com/watch?v= y youtu.be/
     const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
     if (yt) return `https://www.youtube.com/embed/${yt[1]}?autoplay=1&rel=0`;
+    // SoundCloud
     if (url.includes('soundcloud.com'))
       return `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&auto_play=true&visual=true&show_artwork=false&buying=false&liking=false&download=false&sharing=false&show_comments=false&show_playcount=false&show_user=false`;
     return null;
@@ -1686,11 +1775,12 @@
 
   function getMediaType(url) {
     if (!url) return 'other';
-    if (url.match(/(?:youtube\.com|youtu\.be)/)) return 'yt';
+    if (/youtube\.com|youtu\.be/.test(url)) return 'yt';
     if (url.includes('soundcloud.com')) return 'sc';
     return 'other';
   }
 
+  // ── Renderiza los releases en el sitio ──
   function renderReleases() {
     const grid = document.getElementById('releasesGrid');
     const empty = document.getElementById('releasesEmpty');
@@ -1713,7 +1803,7 @@
         <div class="release-card-inner">
           <div class="release-cover-wrap" role="button" tabindex="0" aria-label="Reproducir ${r.title}">
             ${coverHtml}
-            <div class="release-video-overlay" id="rov-${idx}"></div>
+            <div class="release-video-overlay"></div>
             ${embedUrl ? `<div class="release-play-hint" aria-hidden="true">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
             </div>` : ''}
@@ -1738,20 +1828,21 @@
             overlay.appendChild(f);
           }
         };
+        const openVideo = () => { injectIframe(); overlay.classList.add('active'); };
+        const closeVideo = () => { overlay.classList.remove('active'); setTimeout(() => { overlay.innerHTML = ''; }, 320); };
 
-        wrap.addEventListener('mouseenter', () => { injectIframe(); overlay.classList.add('active'); });
-        wrap.addEventListener('mouseleave', () => { overlay.classList.remove('active'); overlay.innerHTML = ''; });
+        wrap.addEventListener('mouseenter', openVideo);
+        wrap.addEventListener('mouseleave', closeVideo);
         wrap.addEventListener('touchend', (e) => {
           e.preventDefault();
           touchActive = !touchActive;
-          if (touchActive) { injectIframe(); overlay.classList.add('active'); wrap.classList.add('touched'); }
-          else { overlay.classList.remove('active'); overlay.innerHTML = ''; wrap.classList.remove('touched'); }
+          if (touchActive) { openVideo(); wrap.classList.add('touched'); }
+          else { closeVideo(); wrap.classList.remove('touched'); }
         });
         wrap.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            if (overlay.classList.contains('active')) { overlay.classList.remove('active'); overlay.innerHTML = ''; }
-            else { injectIframe(); overlay.classList.add('active'); }
+            overlay.classList.contains('active') ? closeVideo() : openVideo();
           }
         });
       }
@@ -1759,6 +1850,7 @@
     });
   }
 
+  // ── Renderiza la lista de releases en el admin ──
   function renderAdminList() {
     const list = document.getElementById('adminReleasesList');
     const count = document.getElementById('adminReleasesCount');
@@ -1786,7 +1878,11 @@
         </div>
         <span class="admin-release-type-badge ${type}">${labels[type]}</span>
         <button class="admin-delete-btn" data-idx="${idx}" title="Eliminar" aria-label="Eliminar ${r.title}">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+            <path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
+          </svg>
         </button>`;
       item.querySelector('.admin-delete-btn').addEventListener('click', () => {
         if (confirm(`¿Eliminar "${r.title}"?`)) {
@@ -1798,6 +1894,7 @@
     });
   }
 
+  // ── Helpers del formulario ──
   function resetAdminForm() {
     ['adminTitle','adminLink','adminDesc','adminImageUrl','adminEditId'].forEach(id => {
       document.getElementById(id).value = '';
@@ -1807,24 +1904,22 @@
     adminCurrentImage = null;
     document.getElementById('adminFeedback').className = 'admin-feedback';
     document.getElementById('adminFormTitle').innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Agregar release`;
-    document.getElementById('adminSaveBtn').textContent = 'Guardar release';
   }
 
   function showFeedback(msg, type) {
     const el = document.getElementById('adminFeedback');
-    el.textContent = msg;
-    el.className = `admin-feedback ${type}`;
-    setTimeout(() => el.className = 'admin-feedback', 3500);
+    el.textContent = msg; el.className = `admin-feedback ${type}`;
+    setTimeout(() => { el.className = 'admin-feedback'; }, 3500);
   }
 
   function updateImagePreview(src) {
     const img = document.getElementById('adminImagePreviewImg');
     const ph = document.getElementById('adminImagePlaceholder');
     if (src) { img.src = src; img.style.display = 'block'; ph.style.display = 'none'; }
-    else { img.style.display = 'none'; ph.style.display = 'flex'; }
+    else { img.style.display = 'none'; img.src = ''; ph.style.display = 'flex'; }
   }
 
-  // File upload
+  // Subida de archivo
   document.getElementById('adminImageFileInput').addEventListener('change', function() {
     const file = this.files[0];
     if (!file) return;
@@ -1832,14 +1927,17 @@
     reader.onload = e => { adminCurrentImage = { dataUrl: e.target.result }; updateImagePreview(e.target.result); };
     reader.readAsDataURL(file);
   });
+
   document.getElementById('adminImagePreview').addEventListener('click', () => document.getElementById('adminImageFileInput').click());
-  document.getElementById('adminImagePreview').addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') document.getElementById('adminImageFileInput').click(); });
+  document.getElementById('adminImagePreview').addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') document.getElementById('adminImageFileInput').click();
+  });
   document.getElementById('adminImageUrl').addEventListener('input', function() {
     if (this.value) { adminCurrentImage = null; updateImagePreview(this.value); }
     else updateImagePreview(null);
   });
 
-  // Save
+  // Guardar release
   document.getElementById('adminSaveBtn').addEventListener('click', () => {
     const title = document.getElementById('adminTitle').value.trim();
     const link = document.getElementById('adminLink').value.trim();
@@ -1852,20 +1950,42 @@
       coverUrl: adminCurrentImage ? '' : urlInput,
       coverDataUrl: adminCurrentImage ? adminCurrentImage.dataUrl : ''
     };
-    if (editId) { const i = releases.findIndex(r=>r.id===editId); if (i!==-1) releases[i]=release; }
+    if (editId) { const i = releases.findIndex(r => r.id === editId); if (i !== -1) releases[i] = release; }
     else releases.push(release);
     saveReleases(); renderAdminList(); renderReleases(); resetAdminForm();
     showFeedback(editId ? '✓ Release actualizado.' : '✓ Release agregado.', 'success');
   });
 
-  // Export
+  // Publicar sitio — genera index.html con releases embebidos
+  document.getElementById('adminPublishBtn').addEventListener('click', () => {
+    // Toma el HTML actual de la página como texto
+    const currentHtml = document.documentElement.outerHTML;
+
+    // Reemplaza el array RELEASES_EMBEDDED con los datos actuales
+    const dataJson = JSON.stringify(releases);
+    const updated = currentHtml.replace(
+      /const RELEASES_EMBEDDED = \[.*?\];/s,
+      `const RELEASES_EMBEDDED = ${dataJson};`
+    );
+
+    // Descarga el archivo
+    const blob = new Blob(['<!DOCTYPE html>\n' + updated], { type: 'text/html;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    a.click();
+
+    showFeedback('✓ index.html descargado. Súbelo a Netlify para publicar.', 'success');
+  });
+
+  // Exportar JSON
   document.getElementById('adminExportBtn').addEventListener('click', () => {
     const a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([JSON.stringify(releases, null, 2)], { type: 'application/json' }));
     a.download = 'alfredo-releases.json'; a.click();
   });
 
-  // Import
+  // Importar JSON
   document.getElementById('adminImportBtn').addEventListener('click', () => {
     const area = document.getElementById('adminJsonArea');
     const btn = document.getElementById('adminImportConfirmBtn');
@@ -1882,10 +2002,10 @@
       document.getElementById('adminImportConfirmBtn').style.display = 'none';
       document.getElementById('adminJsonArea').value = '';
       showFeedback(`✓ ${releases.length} releases importados.`, 'success');
-    } catch(e) { showFeedback('JSON inválido.', 'error'); }
+    } catch(e) { showFeedback('JSON inválido. Revisa el formato.', 'error'); }
   });
 
-  // Hash routing
+  // ── Hash routing: #admin abre el panel ──
   function showAdmin() {
     if (!adminAuthenticated) document.getElementById('adminLogin').classList.add('open');
     else { document.getElementById('adminView').classList.add('open'); renderAdminList(); }
@@ -1895,13 +2015,14 @@
     document.getElementById('adminLogin').classList.remove('open');
   }
   window.addEventListener('hashchange', () => {
-    if (window.location.hash === '#admin') showAdmin(); else hideAdmin();
+    window.location.hash === '#admin' ? showAdmin() : hideAdmin();
   });
   if (window.location.hash === '#admin') showAdmin();
 
   // Login
   document.getElementById('adminLoginBtn').addEventListener('click', () => {
-    if (document.getElementById('adminPasswordInput').value === ADMIN_PASSWORD) {
+    const pw = document.getElementById('adminPasswordInput').value;
+    if (pw === ADMIN_PASSWORD) {
       adminAuthenticated = true;
       document.getElementById('adminLogin').classList.remove('open');
       document.getElementById('adminView').classList.add('open');
@@ -1926,10 +2047,9 @@
     window.history.pushState(null, '', window.location.pathname);
   });
 
-  // Init
+  // ── Inicializar ──
   loadReleases();
   renderReleases();
-
 
 </script>
 </body>
