@@ -671,6 +671,258 @@
       0%, 100% { transform: scaleY(0.5); }
       50% { transform: scaleY(1); }
     }
+        /* ══════════════════════════════════════════
+       RELEASES SECTION
+    ══════════════════════════════════════════ */
+    .releases-section { background: var(--color-bg); }
+    .releases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(230px, 100%), 1fr));
+      gap: var(--space-6);
+    }
+    .release-card { display: flex; flex-direction: column; gap: var(--space-4); }
+    .release-cover-wrap {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--color-surface-offset);
+      cursor: pointer;
+    }
+    .release-cover-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease;
+      display: block;
+    }
+    .release-card:hover .release-cover-img { transform: scale(1.04); }
+    .release-video-overlay {
+      position: absolute; inset: 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+      background: #000;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .release-video-overlay.active { opacity: 1; pointer-events: all; }
+    .release-video-overlay iframe { width: 100%; height: 100%; border: none; display: block; }
+    .release-play-hint {
+      position: absolute; bottom: var(--space-3); right: var(--space-3);
+      width: 36px; height: 36px;
+      background: oklch(from var(--color-bg) l c h / 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-full);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-primary);
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s;
+    }
+    .release-cover-wrap:has(.release-video-overlay.active) .release-play-hint { opacity: 0; pointer-events: none; }
+    .release-cover-wrap:hover .release-play-hint { transform: scale(1.12); background: oklch(from var(--color-bg) l c h / 0.95); }
+    .release-cover-wrap.touched .release-cover-img { opacity: 0; }
+    .release-info { padding: 0 var(--space-1); }
+    .release-title {
+      font-family: var(--font-display); font-size: var(--text-base);
+      font-weight: 600; color: var(--color-text); margin-bottom: var(--space-1);
+    }
+    .release-desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.5; max-width: none; }
+    .releases-empty { text-align: center; padding: var(--space-16) var(--space-8); color: var(--color-text-faint); }
+    .releases-empty svg { margin: 0 auto var(--space-4); opacity: 0.5; }
+    .releases-empty p { font-size: var(--text-sm); color: var(--color-text-faint); max-width: none; }
+
+    /* ══════════════════════════════════════════
+       ADMIN PANEL
+    ══════════════════════════════════════════ */
+    #adminView {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: var(--color-bg); overflow-y: auto;
+    }
+    #adminView.open { display: block; }
+    .admin-nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in oklch, var(--color-bg) 92%, transparent);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--color-divider);
+      padding: var(--space-4) var(--space-6);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .admin-nav-title {
+      font-family: var(--font-display); font-size: var(--text-base);
+      font-weight: 700; color: var(--color-text);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .admin-nav-badge {
+      font-size: var(--text-xs); background: var(--color-primary-highlight);
+      color: var(--color-primary); padding: 2px var(--space-2);
+      border-radius: var(--radius-full); font-weight: 600; letter-spacing: 0.06em;
+    }
+    .admin-close-btn {
+      display: flex; align-items: center; gap: var(--space-2);
+      font-size: var(--text-sm); color: var(--color-text-muted);
+      padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
+      border: 1px solid oklch(from var(--color-text) l c h / 0.15);
+      transition: color var(--transition-interactive), border-color var(--transition-interactive), background var(--transition-interactive);
+    }
+    .admin-close-btn:hover { color: var(--color-text); background: var(--color-surface-offset); }
+    .admin-body {
+      max-width: var(--content-wide); margin-inline: auto;
+      padding: var(--space-8) var(--space-6) var(--space-16);
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: var(--space-8);
+    }
+    @media (max-width: 900px) { .admin-body { grid-template-columns: 1fr; } }
+    .admin-panel {
+      background: var(--color-surface);
+      border: 1px solid oklch(from var(--color-text) l c h / 0.08);
+      border-radius: var(--radius-xl); padding: var(--space-8);
+    }
+    .admin-panel-title {
+      font-family: var(--font-display); font-size: var(--text-lg);
+      font-weight: 700; color: var(--color-text); margin-bottom: var(--space-6);
+      display: flex; align-items: center; gap: var(--space-2);
+    }
+    .admin-form-group { margin-bottom: var(--space-5); }
+    .admin-form-group label {
+      display: block; font-size: var(--text-sm); font-weight: 500;
+      color: var(--color-text-muted); margin-bottom: var(--space-2);
+    }
+    .admin-form-group input,
+    .admin-form-group textarea {
+      width: 100%; padding: var(--space-3) var(--space-4);
+      background: var(--color-surface-2); border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); color: var(--color-text); font-size: var(--text-base);
+      transition: border-color var(--transition-interactive), box-shadow var(--transition-interactive);
+    }
+    .admin-form-group input::placeholder,
+    .admin-form-group textarea::placeholder { color: var(--color-text-faint); }
+    .admin-form-group input:focus,
+    .admin-form-group textarea:focus {
+      outline: none; border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.15);
+    }
+    .admin-form-group textarea { resize: vertical; min-height: 80px; }
+    .admin-image-preview {
+      aspect-ratio: 1; max-width: 130px;
+      border-radius: var(--radius-lg);
+      background: var(--color-surface-offset);
+      border: 2px dashed var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; cursor: pointer; position: relative;
+      transition: border-color 0.2s; flex-shrink: 0;
+    }
+    .admin-image-preview:hover { border-color: var(--color-primary); }
+    .admin-image-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: calc(var(--radius-lg) - 2px); }
+    .admin-image-preview-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: var(--space-1);
+      color: var(--color-text-faint); font-size: var(--text-xs); text-align: center; padding: var(--space-3);
+    }
+    #adminImageFileInput { display: none; }
+    .admin-img-row { display: flex; gap: var(--space-4); align-items: flex-start; margin-bottom: var(--space-4); }
+    .admin-img-url-col { flex: 1; min-width: 0; }
+    .btn-admin-primary {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-3) var(--space-6);
+      background: var(--color-primary); color: var(--color-text-inverse);
+      font-size: var(--text-sm); font-weight: 600; border-radius: var(--radius-md);
+      transition: background var(--transition-interactive), transform var(--transition-interactive);
+      width: 100%; justify-content: center;
+    }
+    .btn-admin-primary:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
+    .btn-admin-secondary {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-surface-offset); color: var(--color-text-muted);
+      font-size: var(--text-sm); font-weight: 500; border-radius: var(--radius-md);
+      border: 1px solid oklch(from var(--color-text) l c h / 0.12);
+      transition: color var(--transition-interactive), background var(--transition-interactive);
+    }
+    .btn-admin-secondary:hover { color: var(--color-text); background: var(--color-surface-dynamic); }
+    .admin-feedback {
+      font-size: var(--text-sm); padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md); margin-top: var(--space-3); display: none;
+    }
+    .admin-feedback.success {
+      display: block;
+      background: oklch(from var(--color-primary) l c h / 0.1);
+      border: 1px solid oklch(from var(--color-primary) l c h / 0.3);
+      color: var(--color-primary);
+    }
+    .admin-feedback.error {
+      display: block; background: oklch(0.4 0.15 30 / 0.1);
+      border: 1px solid oklch(0.4 0.15 30 / 0.3); color: oklch(0.65 0.15 30);
+    }
+    .admin-releases-list { display: flex; flex-direction: column; gap: var(--space-3); }
+    .admin-release-item {
+      display: flex; gap: var(--space-4); align-items: center;
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-surface-2);
+      border: 1px solid oklch(from var(--color-text) l c h / 0.07);
+      border-radius: var(--radius-lg); transition: border-color 0.2s;
+    }
+    .admin-release-item:hover { border-color: oklch(from var(--color-text) l c h / 0.15); }
+    .admin-release-thumb {
+      width: 52px; height: 52px; border-radius: var(--radius-md);
+      flex-shrink: 0; object-fit: cover; background: var(--color-surface-offset);
+    }
+    .admin-release-thumb-placeholder {
+      width: 52px; height: 52px; border-radius: var(--radius-md);
+      background: var(--color-surface-offset); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; color: var(--color-text-faint);
+    }
+    .admin-release-info { flex: 1; min-width: 0; }
+    .admin-release-name {
+      font-family: var(--font-display); font-size: var(--text-sm);
+      font-weight: 600; color: var(--color-text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .admin-release-link {
+      font-size: var(--text-xs); color: var(--color-text-faint);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+    }
+    .admin-release-type-badge {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 2px 6px; border-radius: var(--radius-full); flex-shrink: 0;
+    }
+    .admin-release-type-badge.yt { background: #ff000022; color: #ff4444; }
+    .admin-release-type-badge.sc { background: #ff550022; color: #ff7700; }
+    .admin-release-type-badge.other { background: oklch(from var(--color-primary) l c h / 0.15); color: var(--color-primary); }
+    .admin-delete-btn {
+      flex-shrink: 0; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-text-faint); border-radius: var(--radius-sm); transition: color 0.2s, background 0.2s;
+    }
+    .admin-delete-btn:hover { color: oklch(0.65 0.15 30); background: oklch(0.4 0.15 30 / 0.1); }
+    .admin-empty-list {
+      text-align: center; padding: var(--space-10) var(--space-8);
+      color: var(--color-text-faint); font-size: var(--text-sm);
+    }
+    #adminLogin {
+      display: none; position: fixed; inset: 0; z-index: 201;
+      background: var(--color-bg); align-items: center; justify-content: center;
+    }
+    #adminLogin.open { display: flex; }
+    .admin-login-box {
+      background: var(--color-surface);
+      border: 1px solid oklch(from var(--color-text) l c h / 0.1);
+      border-radius: var(--radius-xl);
+      padding: var(--space-10) var(--space-8);
+      max-width: 380px; width: 100%; margin: var(--space-4); text-align: center;
+    }
+    .admin-login-icon { margin: 0 auto var(--space-4); color: var(--color-primary); }
+    .admin-login-title {
+      font-family: var(--font-display); font-size: var(--text-xl);
+      font-weight: 700; color: var(--color-text); margin-bottom: var(--space-2);
+    }
+    .admin-login-subtitle { font-size: var(--text-sm); color: var(--color-text-muted); margin-bottom: var(--space-6); max-width: none; }
+    .admin-login-input {
+      width: 100%; padding: var(--space-3) var(--space-4);
+      background: var(--color-surface-2); border: 1px solid var(--color-border);
+      border-radius: var(--radius-md); color: var(--color-text); font-size: var(--text-base);
+      text-align: center; letter-spacing: 0.1em; margin-bottom: var(--space-4);
+    }
+    .admin-login-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.15); }
+    .admin-login-error { font-size: var(--text-sm); color: oklch(0.65 0.15 30); margin-bottom: var(--space-3); display: none; }
+    .admin-login-error.show { display: block; }
+    .admin-data-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-4); 
+    }
   </style>
 </head>
 <body>
@@ -719,6 +971,7 @@
   <a href="#sobre-mi" onclick="closeMobileMenu()">Sobre mí</a>
   <a href="#proceso" onclick="closeMobileMenu()">Proceso</a>
   <a href="#generos" onclick="closeMobileMenu()">Géneros</a>
+  <a href="#releases" onclick="closeMobileMenu()">Releases</a>
   <a href="#contacto" onclick="closeMobileMenu()">Contacto</a>
 </div>
 
@@ -995,6 +1248,26 @@
   </div>
 </section>
 
+<!-- ── RELEASES ── -->
+<section class="section releases-section" id="releases" aria-labelledby="releases-heading">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label fade-in">Releases</div>
+      <h2 class="section-title fade-in" id="releases-heading">Mi música</h2>
+      <p class="section-subtitle fade-in">Pasa el cursor sobre cada portada para escuchar — toca en móvil.</p>
+    </div>
+    <div class="releases-grid" id="releasesGrid"></div>
+    <div class="releases-empty" id="releasesEmpty">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/>
+      </svg>
+      <p>Aún no hay releases publicados.<br>
+        Agrégalos desde el <a href="#admin" style="color:var(--color-primary)">panel de administración</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
 <!-- ── TESTIMONIALS ── -->
 <section class="section" aria-labelledby="testimonials-heading">
   <div class="container">
@@ -1106,6 +1379,171 @@
   </div>
 </section>
 </main>
+
+<!-- ── ADMIN LOGIN OVERLAY ── -->
+<div id="adminLogin" role="dialog" aria-modal="true" aria-label="Acceso administrador">
+  <div class="admin-login-box">
+    <div class="admin-login-icon">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <h2 class="admin-login-title">Panel de Admin</h2>
+    <p class="admin-login-subtitle">Ingresa la contraseña para gestionar los releases.</p>
+    <div class="admin-login-error" id="adminLoginError">Contraseña incorrecta. Intenta de nuevo.</div>
+    <input class="admin-login-input" id="adminPasswordInput" type="password" placeholder="••••••••" autocomplete="current-password" aria-label="Contraseña" />
+    <button class="btn-admin-primary" id="adminLoginBtn" style="border-radius:var(--radius-full)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Ingresar
+    </button>
+    <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-4)">
+      Contraseña por defecto: <code style="background:var(--color-surface-offset);padding:1px 5px;border-radius:3px">admin123</code>
+    </p>
+  </div>
+</div>
+
+<!-- ── ADMIN PANEL ── -->
+<div id="adminView" role="main" aria-label="Panel de administración">
+  <nav class="admin-nav">
+    <div class="admin-nav-title">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+      </svg>
+      Admin Releases
+      <span class="admin-nav-badge">alfredosamuel.cl</span>
+    </div>
+    <div style="display:flex;gap:var(--space-3);align-items:center">
+      <button id="adminLogoutBtn" class="btn-admin-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Cerrar sesión
+      </button>
+      <button id="adminViewSiteBtn" class="admin-close-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+        Ver sitio
+      </button>
+    </div>
+  </nav>
+
+  <div class="admin-body">
+    <!-- Formulario -->
+    <div>
+      <div class="admin-panel">
+        <h3 class="admin-panel-title" id="adminFormTitle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+          </svg>
+          Agregar release
+        </h3>
+
+        <div class="admin-form-group">
+          <label>Carátula (cuadrada)</label>
+          <div class="admin-img-row">
+            <div class="admin-image-preview" id="adminImagePreview" title="Haz clic para subir una imagen" role="button" tabindex="0" aria-label="Subir carátula">
+              <div class="admin-image-preview-placeholder" id="adminImagePlaceholder">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+                <span>Subir</span>
+              </div>
+              <img id="adminImagePreviewImg" src="" alt="Preview" style="display:none;width:100%;height:100%;object-fit:cover" />
+            </div>
+            <input type="file" id="adminImageFileInput" accept="image/*" aria-label="Archivo de imagen" />
+            <div class="admin-img-url-col">
+              <label style="font-size:var(--text-xs);color:var(--color-text-faint);display:block;margin-bottom:var(--space-2)">O pega una URL de imagen</label>
+              <input type="url" id="adminImageUrl" placeholder="https://..." />
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="adminTitle">Título del release *</label>
+          <input type="text" id="adminTitle" placeholder="Nombre del single, EP, beat..." />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="adminLink">Link de YouTube o SoundCloud</label>
+          <input type="url" id="adminLink" placeholder="https://youtube.com/watch?v=... o https://soundcloud.com/..." />
+          <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-1);max-width:none">
+            Soporta youtube.com/watch?v=..., youtu.be/... y soundcloud.com/... El video/audio se reproduce al pasar el cursor sobre la carátula.
+          </p>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="adminDesc">Descripción (opcional)</label>
+          <textarea id="adminDesc" placeholder="Género, año, colaboradores..."></textarea>
+        </div>
+
+        <input type="hidden" id="adminEditId" value="" />
+
+        <button class="btn-admin-primary" id="adminSaveBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/>
+          </svg>
+          Guardar release
+        </button>
+        <div class="admin-feedback" id="adminFeedback"></div>
+      </div>
+
+      <div class="admin-panel" style="margin-top:var(--space-4)">
+        <h3 class="admin-panel-title" style="font-size:var(--text-base);margin-bottom:var(--space-3)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="6 9 6 2 18 2 18 9"/>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+            <rect x="6" y="14" width="12" height="8"/>
+          </svg>
+          Datos
+        </h3>
+        <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-bottom:var(--space-4);max-width:none">Los datos se guardan en tu navegador (localStorage). Exporta para hacer respaldo o mover a otro dispositivo.</p>
+        <div class="admin-data-actions">
+          <button class="btn-admin-secondary" id="adminExportBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Exportar JSON
+          </button>
+          <button class="btn-admin-secondary" id="adminImportBtn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Importar JSON
+          </button>
+        </div>
+        <textarea id="adminJsonArea" placeholder="Pega tu JSON aquí para importar..." style="width:100%;margin-top:var(--space-3);padding:var(--space-3);background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-md);color:var(--color-text);font-size:var(--text-xs);resize:vertical;min-height:80px;display:none;font-family:monospace"></textarea>
+        <button class="btn-admin-primary" id="adminImportConfirmBtn" style="margin-top:var(--space-3);display:none">Importar y reemplazar</button>
+      </div>
+    </div>
+
+    <!-- Lista de releases -->
+    <div>
+      <div class="admin-panel" style="min-height:400px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-6)">
+          <h3 class="admin-panel-title" style="margin-bottom:0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+              <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
+              <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+            Releases publicados
+          </h3>
+          <span id="adminReleasesCount" style="font-size:var(--text-xs);color:var(--color-text-faint)">0 releases</span>
+        </div>
+        <div class="admin-releases-list" id="adminReleasesList"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ── FOOTER ── -->
 <footer class="footer" role="contentinfo">
@@ -1219,6 +1657,280 @@
 
   const statsBar = document.querySelector('.stats-bar');
   if (statsBar) statsObserver.observe(statsBar);
+
+  // ══════════════════════════════════════
+  // RELEASES & ADMIN
+  // ══════════════════════════════════════
+  const ADMIN_PASSWORD = 'admin123'; // ← Cambia esto
+  let releases = [];
+  let adminAuthenticated = false;
+  let adminCurrentImage = null;
+
+  function lsGet(k) { try { return localStorage.getItem(k); } catch(e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch(e) {} }
+
+  function loadReleases() {
+    const raw = lsGet('alfredo_releases');
+    if (raw) { try { releases = JSON.parse(raw); } catch(e) { releases = []; } }
+  }
+  function saveReleases() { lsSet('alfredo_releases', JSON.stringify(releases)); }
+
+  function getEmbedUrl(url) {
+    if (!url) return null;
+    const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if (yt) return `https://www.youtube.com/embed/${yt[1]}?autoplay=1&rel=0`;
+    if (url.includes('soundcloud.com'))
+      return `https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&auto_play=true&visual=true&show_artwork=false&buying=false&liking=false&download=false&sharing=false&show_comments=false&show_playcount=false&show_user=false`;
+    return null;
+  }
+
+  function getMediaType(url) {
+    if (!url) return 'other';
+    if (url.match(/(?:youtube\.com|youtu\.be)/)) return 'yt';
+    if (url.includes('soundcloud.com')) return 'sc';
+    return 'other';
+  }
+
+  function renderReleases() {
+    const grid = document.getElementById('releasesGrid');
+    const empty = document.getElementById('releasesEmpty');
+    if (!grid) return;
+    grid.innerHTML = '';
+    if (!releases.length) { empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+
+    releases.forEach((r, idx) => {
+      const embedUrl = getEmbedUrl(r.link);
+      const coverSrc = r.coverDataUrl || r.coverUrl || '';
+      const coverHtml = coverSrc
+        ? `<img src="${coverSrc}" alt="${r.title}" class="release-cover-img" loading="lazy" width="400" height="400" />`
+        : `<div class="release-cover-img" style="background:var(--color-surface-offset);width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--color-text-faint)"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none"/></svg></div>`;
+
+      const card = document.createElement('article');
+      card.className = 'release-card fade-in';
+      card.setAttribute('aria-label', r.title);
+      card.innerHTML = `
+        <div class="release-card-inner">
+          <div class="release-cover-wrap" role="button" tabindex="0" aria-label="Reproducir ${r.title}">
+            ${coverHtml}
+            <div class="release-video-overlay" id="rov-${idx}"></div>
+            ${embedUrl ? `<div class="release-play-hint" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>` : ''}
+          </div>
+        </div>
+        <div class="release-info">
+          <h3 class="release-title">${r.title}</h3>
+          ${r.desc ? `<p class="release-desc">${r.desc}</p>` : ''}
+        </div>`;
+
+      if (embedUrl) {
+        const wrap = card.querySelector('.release-cover-wrap');
+        const overlay = card.querySelector('.release-video-overlay');
+        let touchActive = false;
+
+        const injectIframe = () => {
+          if (!overlay.querySelector('iframe')) {
+            const f = document.createElement('iframe');
+            f.src = embedUrl;
+            f.allow = 'autoplay; encrypted-media';
+            f.allowFullscreen = true;
+            overlay.appendChild(f);
+          }
+        };
+
+        wrap.addEventListener('mouseenter', () => { injectIframe(); overlay.classList.add('active'); });
+        wrap.addEventListener('mouseleave', () => { overlay.classList.remove('active'); overlay.innerHTML = ''; });
+        wrap.addEventListener('touchend', (e) => {
+          e.preventDefault();
+          touchActive = !touchActive;
+          if (touchActive) { injectIframe(); overlay.classList.add('active'); wrap.classList.add('touched'); }
+          else { overlay.classList.remove('active'); overlay.innerHTML = ''; wrap.classList.remove('touched'); }
+        });
+        wrap.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (overlay.classList.contains('active')) { overlay.classList.remove('active'); overlay.innerHTML = ''; }
+            else { injectIframe(); overlay.classList.add('active'); }
+          }
+        });
+      }
+      grid.appendChild(card);
+    });
+  }
+
+  function renderAdminList() {
+    const list = document.getElementById('adminReleasesList');
+    const count = document.getElementById('adminReleasesCount');
+    if (!list) return;
+    count.textContent = `${releases.length} release${releases.length !== 1 ? 's' : ''}`;
+    list.innerHTML = '';
+    if (!releases.length) {
+      list.innerHTML = '<div class="admin-empty-list">Aún no hay releases. Agrégalos con el formulario.</div>';
+      return;
+    }
+    releases.forEach((r, idx) => {
+      const type = getMediaType(r.link);
+      const labels = { yt: 'YouTube', sc: 'SoundCloud', other: 'Link' };
+      const src = r.coverDataUrl || r.coverUrl || '';
+      const thumb = src
+        ? `<img class="admin-release-thumb" src="${src}" alt="${r.title}" />`
+        : `<div class="admin-release-thumb-placeholder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
+      const item = document.createElement('div');
+      item.className = 'admin-release-item';
+      item.innerHTML = `
+        ${thumb}
+        <div class="admin-release-info">
+          <div class="admin-release-name">${r.title}</div>
+          <div class="admin-release-link">${r.link || '— Sin link'}</div>
+        </div>
+        <span class="admin-release-type-badge ${type}">${labels[type]}</span>
+        <button class="admin-delete-btn" data-idx="${idx}" title="Eliminar" aria-label="Eliminar ${r.title}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </button>`;
+      item.querySelector('.admin-delete-btn').addEventListener('click', () => {
+        if (confirm(`¿Eliminar "${r.title}"?`)) {
+          releases.splice(idx, 1);
+          saveReleases(); renderAdminList(); renderReleases();
+        }
+      });
+      list.appendChild(item);
+    });
+  }
+
+  function resetAdminForm() {
+    ['adminTitle','adminLink','adminDesc','adminImageUrl','adminEditId'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('adminImagePreviewImg').style.display = 'none';
+    document.getElementById('adminImagePlaceholder').style.display = 'flex';
+    adminCurrentImage = null;
+    document.getElementById('adminFeedback').className = 'admin-feedback';
+    document.getElementById('adminFormTitle').innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Agregar release`;
+    document.getElementById('adminSaveBtn').textContent = 'Guardar release';
+  }
+
+  function showFeedback(msg, type) {
+    const el = document.getElementById('adminFeedback');
+    el.textContent = msg;
+    el.className = `admin-feedback ${type}`;
+    setTimeout(() => el.className = 'admin-feedback', 3500);
+  }
+
+  function updateImagePreview(src) {
+    const img = document.getElementById('adminImagePreviewImg');
+    const ph = document.getElementById('adminImagePlaceholder');
+    if (src) { img.src = src; img.style.display = 'block'; ph.style.display = 'none'; }
+    else { img.style.display = 'none'; ph.style.display = 'flex'; }
+  }
+
+  // File upload
+  document.getElementById('adminImageFileInput').addEventListener('change', function() {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => { adminCurrentImage = { dataUrl: e.target.result }; updateImagePreview(e.target.result); };
+    reader.readAsDataURL(file);
+  });
+  document.getElementById('adminImagePreview').addEventListener('click', () => document.getElementById('adminImageFileInput').click());
+  document.getElementById('adminImagePreview').addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') document.getElementById('adminImageFileInput').click(); });
+  document.getElementById('adminImageUrl').addEventListener('input', function() {
+    if (this.value) { adminCurrentImage = null; updateImagePreview(this.value); }
+    else updateImagePreview(null);
+  });
+
+  // Save
+  document.getElementById('adminSaveBtn').addEventListener('click', () => {
+    const title = document.getElementById('adminTitle').value.trim();
+    const link = document.getElementById('adminLink').value.trim();
+    const desc = document.getElementById('adminDesc').value.trim();
+    const urlInput = document.getElementById('adminImageUrl').value.trim();
+    const editId = document.getElementById('adminEditId').value;
+    if (!title) { showFeedback('El título es obligatorio.', 'error'); return; }
+    const release = {
+      id: editId || Date.now().toString(), title, link, desc,
+      coverUrl: adminCurrentImage ? '' : urlInput,
+      coverDataUrl: adminCurrentImage ? adminCurrentImage.dataUrl : ''
+    };
+    if (editId) { const i = releases.findIndex(r=>r.id===editId); if (i!==-1) releases[i]=release; }
+    else releases.push(release);
+    saveReleases(); renderAdminList(); renderReleases(); resetAdminForm();
+    showFeedback(editId ? '✓ Release actualizado.' : '✓ Release agregado.', 'success');
+  });
+
+  // Export
+  document.getElementById('adminExportBtn').addEventListener('click', () => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(releases, null, 2)], { type: 'application/json' }));
+    a.download = 'alfredo-releases.json'; a.click();
+  });
+
+  // Import
+  document.getElementById('adminImportBtn').addEventListener('click', () => {
+    const area = document.getElementById('adminJsonArea');
+    const btn = document.getElementById('adminImportConfirmBtn');
+    const visible = area.style.display !== 'none';
+    area.style.display = visible ? 'none' : 'block';
+    btn.style.display = visible ? 'none' : 'inline-flex';
+  });
+  document.getElementById('adminImportConfirmBtn').addEventListener('click', () => {
+    try {
+      const parsed = JSON.parse(document.getElementById('adminJsonArea').value.trim());
+      if (!Array.isArray(parsed)) throw new Error();
+      releases = parsed; saveReleases(); renderAdminList(); renderReleases();
+      document.getElementById('adminJsonArea').style.display = 'none';
+      document.getElementById('adminImportConfirmBtn').style.display = 'none';
+      document.getElementById('adminJsonArea').value = '';
+      showFeedback(`✓ ${releases.length} releases importados.`, 'success');
+    } catch(e) { showFeedback('JSON inválido.', 'error'); }
+  });
+
+  // Hash routing
+  function showAdmin() {
+    if (!adminAuthenticated) document.getElementById('adminLogin').classList.add('open');
+    else { document.getElementById('adminView').classList.add('open'); renderAdminList(); }
+  }
+  function hideAdmin() {
+    document.getElementById('adminView').classList.remove('open');
+    document.getElementById('adminLogin').classList.remove('open');
+  }
+  window.addEventListener('hashchange', () => {
+    if (window.location.hash === '#admin') showAdmin(); else hideAdmin();
+  });
+  if (window.location.hash === '#admin') showAdmin();
+
+  // Login
+  document.getElementById('adminLoginBtn').addEventListener('click', () => {
+    if (document.getElementById('adminPasswordInput').value === ADMIN_PASSWORD) {
+      adminAuthenticated = true;
+      document.getElementById('adminLogin').classList.remove('open');
+      document.getElementById('adminView').classList.add('open');
+      renderAdminList();
+      document.getElementById('adminLoginError').classList.remove('show');
+    } else {
+      document.getElementById('adminLoginError').classList.add('show');
+      document.getElementById('adminPasswordInput').value = '';
+      document.getElementById('adminPasswordInput').focus();
+    }
+  });
+  document.getElementById('adminPasswordInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('adminLoginBtn').click();
+  });
+  document.getElementById('adminLogoutBtn').addEventListener('click', () => {
+    adminAuthenticated = false;
+    document.getElementById('adminView').classList.remove('open');
+    window.history.pushState(null, '', window.location.pathname);
+  });
+  document.getElementById('adminViewSiteBtn').addEventListener('click', () => {
+    document.getElementById('adminView').classList.remove('open');
+    window.history.pushState(null, '', window.location.pathname);
+  });
+
+  // Init
+  loadReleases();
+  renderReleases();
+
+
 </script>
 </body>
 </html>
